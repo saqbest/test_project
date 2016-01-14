@@ -9,7 +9,6 @@
     require_once('models/Model.php');
     $model = new Model();
     $positions = $model->getPosition();
-    print_r($positions);
     ?>
     <meta charset="utf-8">
     <title>jQuery UI Draggable - Default functionality</title>
@@ -22,8 +21,8 @@
 </head>
 <body>
 <?php foreach ($positions as $value): ?>
-    <div data-key="<?= $value['key'] ?>$" class="draggable"
-         style="background-color: #ffe31d;position: absolute;top: <?= $value['top']; ?>;left: <?= $value['left'] ?>"></div>
+    <div data-key="<?= $value['key'] ?>" class="draggable"
+         style="background-color: #ffe31d;position: absolute;top: <?= $value['top'] . "px"; ?>;left: <?= $value['left'] . "px" ?>"></div>
 <?php endforeach; ?>
 <input type="hidden" id="baseurl" value="/test3/">
 </body>
