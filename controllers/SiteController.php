@@ -1,0 +1,4 @@
+<?php
+use Setting\Config;
+
+?>
