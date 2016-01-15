@@ -3,7 +3,7 @@ $(document).ready(function () {
         $(".draggable").draggable({
             stop: function (event, ui) {
                 var key = $(this).data('key');
-                $.post($('#baseurl').val() + 'controllers/PositionController.php', {
+                $.post('position/setposition', {
                         top: ui.offset.top,
                         left: ui.offset.left,
                         key: key

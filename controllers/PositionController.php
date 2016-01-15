@@ -4,12 +4,23 @@ use core\Controller;
 
 class PositionController extends Controller
 {
-    function action_index()
+    function actionIndex()
     {
         $model = new Model();
-        $data = $model->getPosition();
+        $positions = $model->getPosition();
+        $this->view->render('Template', array('positions' => $positions));
 
-        $this->view->generate('Template', ['data' => $data]);
     }
+
+    function actionSetposition()
+    {
+        if (isset($_POST['top']) && isset($_POST['left']) && isset($_POST['key'])) {
+            $model = new Model();
+            $model->setPosition($_POST['top'], $_POST['left'], $_POST['key']);
+            return true;
+        }
+
+    }
+
 }
 
