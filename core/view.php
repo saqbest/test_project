@@ -10,7 +10,7 @@ class View
     {
         extract($params);
         ob_start();
-        include VIEWS_BASEDIR . $template . '.php';
+        include_once VIEWS_BASEDIR . $template . '.php';
         return ob_get_clean();
     }
 

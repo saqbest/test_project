@@ -45,13 +45,12 @@ class Router
                 $action = 'action' . ucfirst(array_shift($segments));
                 $parameters = $segments;
                 $controllerFile = ROOT . './controllers/' . $controller . '.php';
-                if (file_exists($controllerFile)) {
+                if (file_exists($controllerFile) && !in_array($controller, get_declared_classes())) {
                     include($controllerFile);
                 }
 
                 if (!is_callable(array($controller, $action))) {
-                    header("HTTP/1.0 404 Not Found");
-                    return;
+                    return false;
                 }
 
                 $controller = new $controller;

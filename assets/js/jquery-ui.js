@@ -8405,7 +8405,7 @@
                     this.options.dialogClass )
                 .hide()
                 .attr({
-                    // Setting tabIndex makes the div focusable
+                    // Settings tabIndex makes the div focusable
                     tabIndex: -1,
                     role: "dialog"
                 })
@@ -12535,7 +12535,7 @@
             }
 
             // support: IE
-            // Setting the text selection kills the button focus in IE, but
+            // Settings the text selection kills the button focus in IE, but
             // restoring the focus doesn't kill the selection.
             this.button.focus();
         },
@@ -15554,7 +15554,7 @@
 
             if ( key === "collapsible" ) {
                 this.element.toggleClass( "ui-tabs-collapsible", value );
-                // Setting collapsible: false while collapsed; open first panel
+                // Settings collapsible: false while collapsed; open first panel
                 if ( !value && this.options.active === false ) {
                     this._activate( 0 );
                 }

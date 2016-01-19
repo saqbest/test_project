@@ -3,27 +3,19 @@ namespace models;
 
 use core\Database;
 
-class Model
+class Model extends Database
 {
-    private $instance;
 
-    function __construct()
-    {
 
-        $this->instance = Database::getInstance();
-    }
 
     public function setPosition($top, $left, $key)
     {
-        $sql = "SELECT count(*) FROM `positions` WHERE `key`=:key";
-        $result = $this->instance->prepare($sql);
-        $result->execute(array('key' => $key));
+        $sql = "SELECT count(*) FROM `positions` WHERE `id`=:id";
+        $result = $this->getInstance()->prepare($sql);
+        $result->execute(array(':id' => $key));
         $number_of_rows = $result->fetchColumn();
-        var_dump($number_of_rows);
-        if ($number_of_rows < 1) {
-            return Database::Insert(array('top' => $top, 'left' => $left, 'key' => $key));
-        } else {
-            return Database::Update(array('top' => $top, 'left' => $left, 'key' => $key));
+        if ($number_of_rows > 0) {
+            return Database::Update(array(':top' => $top, ':left' => $left, ':id' => $key));
         }
 
     }
