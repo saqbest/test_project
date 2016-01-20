@@ -16,7 +16,7 @@ class App
 
     public static function getUserId($username, $password)
     {
-        $result = Database::getInstance()->prepare("SELECT id FROM `users` where `username` = :username AND `password`=:password");
+        $result = Database::getInstance()->prepare("SELECT id FROM `users` where `username` = :username AND `password`=:password OR `email`=:username AND `password`=:password");
         $result->execute(array(':username' => $username, ':password' => $password));
         $row = $result->fetch(PDO::FETCH_ASSOC);
         return $row['id'];

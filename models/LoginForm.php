@@ -48,7 +48,7 @@ class LoginForm extends Database
         if ($this->isValidate($data)) {
             $username = trim(htmlspecialchars($data['username'], ENT_QUOTES));
             $password = md5(trim(htmlspecialchars($data['password'], ENT_QUOTES)));
-            $sql = "SELECT count(*) FROM `users` WHERE `username`=:username AND `password`=:password";
+            $sql = "SELECT count(*) FROM `users` WHERE `username`=:username AND `password`=:password OR `email`=:username AND `password`=:password";
             $result = $this->getInstance()->prepare($sql);
             $result->execute(array(':username' => $username, ':password' => $password));
             $number_of_rows = $result->fetchColumn();

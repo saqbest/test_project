@@ -9,7 +9,6 @@ $(document).ready(function () {
                         key: key
                     })
                     .done(function (data) {
-                        console.log(data);
                     })
             }
         });

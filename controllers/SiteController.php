@@ -33,6 +33,12 @@ class SiteController extends Controller
             $this->view->render('Template', array('positions' => $positions));
 
 
+        } elseif (!App::isGuest()) {
+            $model = new Model();
+            $user_id = $_SESSION['user_id'];
+            $positions = $model->FindeAll($user_id);
+            $this->view->render('Template', array('positions' => $positions));
+
         } else {
             foreach ($model->errors as $error) {
                 echo "<div class='error_div'>" . $error . "</div>";
@@ -50,6 +56,12 @@ class SiteController extends Controller
             echo "User registered";
             $this->view->render('LoginSignup');
 
+
+        } elseif (!App::isGuest()) {
+            $model = new Model();
+            $user_id = $_SESSION['user_id'];
+            $positions = $model->FindeAll($user_id);
+            $this->view->render('Template', array('positions' => $positions));
 
         } else {
 
@@ -80,6 +92,21 @@ class SiteController extends Controller
     {
         App::userLogout();
         header('Location: http://local.test.com/site/index');
+
+    }
+
+    function actionCheckUnique()
+    {
+        if (isset($_POST)) {
+            $param = $_POST['param'];
+            $model = new Model();
+            $unique = $model->getUnique($param);
+            if ($unique) {
+                echo true;
+            } else {
+                return false;
+            }
+        }
 
     }
 
