@@ -35,9 +35,9 @@ class SiteController extends Controller
 
         } else {
             foreach ($model->errors as $error) {
-                echo $error;
+                echo "<div class='error_div'>" . $error . "</div>";
             }
-            header('Location: http://local.test.com/site/index');
+            $this->view->render('LoginSignup');
 
         }
     }
@@ -52,9 +52,10 @@ class SiteController extends Controller
 
 
         } else {
-            echo "Registration filed!!!";
+
             foreach ($model->errors as $error) {
-                echo $error;
+
+                echo "<div class='error_div'>" . $error . "</div>";
             }
             $this->view->render('LoginSignup');
 

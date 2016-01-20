@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="error_box"></div>
+    <div class="error_div"></div>
 
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -37,19 +37,19 @@
                                     </div>
                                 </div>
                             </form>
-                            <form id="register-form" name="register-form" onsubmit="return validateForm()"
+                            <form id="register-form" name="register-form"
                                   action="/site/signup" method="post" role="form" style="display: none;">
                                 <div class="form-group">
                                     <input type="text" name="reg-username" id="reg-username" tabindex="1"
-                                           class="form-control" placeholder="Username" value="" required>
+                                           class="form-control" placeholder="Username" value="">
                                 </div>
                                 <div class="form-group">
                                     <input type="email" name="email" id="email" tabindex="1" class="form-control"
-                                           placeholder="Email Address" value="" required>
+                                           placeholder="Email Address" value="">
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="password" name="password" id="password" tabindex="2"
+                                    <input type="password" name="password" id="password1" tabindex="2"
                                            class="form-control" placeholder="Password">
                                 </div>
                                 <div class="form-group">
@@ -58,7 +58,7 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="number" name="number" id="number" class="form-control" min="1" max="5"
-                                           placeholder="Box number" required>
+                                           placeholder="Box number">
                                 </div>
                                 <div class="form-group">
                                     <div class="row">

@@ -7,7 +7,6 @@ class Model extends Database
 {
 
 
-
     public function setPosition($top, $left, $key)
     {
         $sql = "SELECT count(*) FROM `positions` WHERE `id`=:id";
@@ -22,6 +21,7 @@ class Model extends Database
 
     public function getPosition()
     {
+
         return Database::FindeAll();
     }
 }

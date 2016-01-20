@@ -114,3 +114,9 @@ body {
     background-color: #1CA347;
     border-color: #1CA347;
 }
+
+.error_div {
+    width: 500px;
+    margin: 15px auto;
+    color: red;
+}
