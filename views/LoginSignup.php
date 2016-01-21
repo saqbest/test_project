@@ -85,7 +85,7 @@
                                         <div class="col-sm-6 col-sm-offset-3">
                                             <input type="submit" name="register-submit" id="register-submit"
                                                    tabindex="4" class="form-control btn btn-register"
-                                                   value="Register Now">
+                                                   value="Next">
                                         </div>
                                     </div>
                                 </div>

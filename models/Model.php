@@ -21,7 +21,6 @@ class Model extends Database
 
     public function getPosition()
     {
-
         return Database::FindeAll();
     }
 

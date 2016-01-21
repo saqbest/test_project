@@ -14,6 +14,8 @@
 <script src="/assets/js/jquery.js" type="text/javascript"></script>
 <script src="/assets/js/jquery-ui.js" type="text/javascript"></script>
 <script src="/assets/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/assets/js/jquery.form.min.js" type="text/javascript"></script>
 <script src="/assets/js/validation-rules.js" type="text/javascript"></script>
 <script src="/assets/js/script.js" type="text/javascript"></script>
+<script src="/assets/js/file-upload.js" type="text/javascript"></script>
 </body>

@@ -4,7 +4,6 @@ namespace core;
 use Settings\Config;
 use PDO;
 use PDOException;
-
 class Database
 {
     public static $instance = null;
@@ -63,6 +62,7 @@ class Database
         $row = $result->fetch(PDO::FETCH_ASSOC);
         return $row['id'];
     }
+
     public static function Delete()
     {
 

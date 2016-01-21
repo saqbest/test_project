@@ -4,7 +4,7 @@ use models\Model;
 use core\Controller;
 use models\Signup;
 use models\LoginForm;
-
+use models\ImageUpload;
 class SiteController extends Controller
 {
     function actionIndex()
@@ -43,6 +43,7 @@ class SiteController extends Controller
     function actionSignup()
     {
         $model = new Signup();
+        var_dump($_POST);
         if ($model->isValidate($_POST)) {
             $model->Save($_POST['reg-username'], $_POST['email'], $_POST['password1'], $_POST['number']);
             $username = trim(htmlspecialchars($_POST['reg-username'], ENT_QUOTES));
@@ -50,7 +51,8 @@ class SiteController extends Controller
             $user_id = App::getUserId($username, $password);
             $_SESSION['isGuest'] = true;
             $_SESSION['user_id'] = $user_id;
-            header('Location: http://local.test.com');
+            $this->view->render('ImageUpload');
+            unset($_POST);
         } elseif (!App::isGuest()) {
             header('Location: http://local.test.com/');
 
@@ -60,13 +62,13 @@ class SiteController extends Controller
 
                 echo "<div class='error_div'>" . $error . "</div>";
             }
-            $this->view->render('LoginSignup');
+            $this->view->render('LoginSignUp');
         }
 
 
     }
 
-    function actionSetposition()
+    function actionSetPosition()
     {
         if (isset($_POST['top']) && isset($_POST['left']) && isset($_POST['key'])) {
             $model = new Model();
@@ -97,6 +99,35 @@ class SiteController extends Controller
             }
         }
 
+    }
+
+    function actionImageUpload()
+    {
+
+
+        if (isset($_FILES["FileInput"]) && $_FILES["FileInput"]["error"] == UPLOAD_ERR_OK) {
+            $model = new ImageUpload();
+            if ($model->isValidate($_FILES["FileInput"])) {
+
+                $model->Save($_FILES["FileInput"]);
+                header('Location: http://local.test.com/');
+
+            } else {
+                foreach ($model->errors as $error) {
+                    echo $error;
+                }
+
+            }
+
+        } elseif (!App::isGuest()) {
+            header('Location: http://local.test.com/');
+
+        } else {
+
+            //$this->view->render('ImageUpload');
+
+            die('Something wrong with upload! Is "upload_max_filesize" set correctly?');
+        }
     }
 
 }
