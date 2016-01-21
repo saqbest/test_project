@@ -15,11 +15,8 @@ class SiteController extends Controller
             $user_id = $_SESSION['user_id'];
             $positions = $model->FindeAll($user_id);
             $this->view->render('Template', array('positions' => $positions));
-
         }
-
         $this->view->render('LoginSignup');
-
     }
 
     function actionLogin()
@@ -27,18 +24,13 @@ class SiteController extends Controller
         $model = new LoginForm();
         if ($model->isLogin($_POST)) {
             $user_id = $model->isLogin($_POST);
-            $positions = $model->FindeAll($user_id);
             $_SESSION['isGuest'] = true;
             $_SESSION['user_id'] = $user_id;
-            $this->view->render('Template', array('positions' => $positions));
+            header('Location: http://local.test.com/site/index');
 
 
         } elseif (!App::isGuest()) {
-            $model = new Model();
-            $user_id = $_SESSION['user_id'];
-            $positions = $model->FindeAll($user_id);
-            $this->view->render('Template', array('positions' => $positions));
-
+            header('Location: http://local.test.com/site/index');
         } else {
             foreach ($model->errors as $error) {
                 echo "<div class='error_div'>" . $error . "</div>";
@@ -53,15 +45,14 @@ class SiteController extends Controller
         $model = new Signup();
         if ($model->isValidate($_POST)) {
             $model->Save($_POST['reg-username'], $_POST['email'], $_POST['password1'], $_POST['number']);
-            echo "User registered";
-            $this->view->render('LoginSignup');
-
-
+            $username = trim(htmlspecialchars($_POST['reg-username'], ENT_QUOTES));
+            $password = md5(trim(htmlspecialchars($_POST['password1'], ENT_QUOTES)));
+            $user_id = App::getUserId($username, $password);
+            $_SESSION['isGuest'] = true;
+            $_SESSION['user_id'] = $user_id;
+            header('Location: http://local.test.com');
         } elseif (!App::isGuest()) {
-            $model = new Model();
-            $user_id = $_SESSION['user_id'];
-            $positions = $model->FindeAll($user_id);
-            $this->view->render('Template', array('positions' => $positions));
+            header('Location: http://local.test.com/');
 
         } else {
 
@@ -70,7 +61,6 @@ class SiteController extends Controller
                 echo "<div class='error_div'>" . $error . "</div>";
             }
             $this->view->render('LoginSignup');
-
         }
 
 
@@ -92,7 +82,6 @@ class SiteController extends Controller
     {
         App::userLogout();
         header('Location: http://local.test.com/site/index');
-
     }
 
     function actionCheckUnique()

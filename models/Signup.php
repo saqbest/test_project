@@ -56,8 +56,11 @@ class Signup extends Database
 
     public function Save($username, $email, $password, $number)
     {
+        $username = trim(htmlspecialchars($username, ENT_QUOTES));
+        $password = md5(trim(htmlspecialchars($password, ENT_QUOTES)));
+        $email = trim(htmlspecialchars($email, ENT_QUOTES));
+        $number = trim(htmlspecialchars($number, ENT_QUOTES));
 
-        $password = md5($password);
         $sql = "INSERT INTO `users` (`username`, `email`,`password`) VALUES (:username, :email, :password)";;
         $result = self::getInstance()->prepare($sql);
         $result->execute(array(':username' => $username, ':email' => $email, ':password' => $password));
