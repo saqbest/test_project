@@ -10,7 +10,7 @@ class Signup extends Database
     private $attributes = [
         'reg-username',
         'email',
-        'password',
+        'password1',
         'confirm-password'
     ];
 
@@ -31,7 +31,7 @@ class Signup extends Database
 
                     }
                 }
-                if ($form['password'] !== $form['confirm-password']) {
+                if ($form['password1'] !== $form['confirm-password']) {
 
                     $this->errors[] = 'Password error';
 
@@ -45,7 +45,7 @@ class Signup extends Database
 
             }
         } else {
-            $this->errors[] = "dont submited";
+            return false;
         }
         if (empty($this->errors)) {
             return true;

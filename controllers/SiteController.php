@@ -52,7 +52,7 @@ class SiteController extends Controller
     {
         $model = new Signup();
         if ($model->isValidate($_POST)) {
-            $model->Save($_POST['reg-username'], $_POST['email'], $_POST['password'], $_POST['number']);
+            $model->Save($_POST['reg-username'], $_POST['email'], $_POST['password1'], $_POST['number']);
             echo "User registered";
             $this->view->render('LoginSignup');
 

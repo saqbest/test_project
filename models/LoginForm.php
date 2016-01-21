@@ -33,7 +33,7 @@ class LoginForm extends Database
 
             }
         } else {
-            $this->errors[] = "dont submited";
+            return false;
         }
         if (empty($this->errors)) {
             return true;

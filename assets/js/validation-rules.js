@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    var login_valid = 2
+    var valid = 5
     function isEmail(email) {
         var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         return regex.test(email);
@@ -13,11 +15,19 @@ $(document).ready(function () {
             })
             .done(function (data) {
                 if (data > 0) {
-                    $('.error_div').html('Username  exists')
+                    $('#reg-username-error').html('Username already exists')
+
+                }
+                else if (!username) {
+                    $('#reg-username-error').html('This field username empty!')
+                }
+                else if (username.length < 5) {
+                    $('#reg-username-error').html('This field password should not be more than 4 characters')
 
                 }
                 else {
-                    $('.error_div').html('')
+                    $('#reg-username-error').html('')
+                    valid = valid - 1
                 }
             })
     })
@@ -30,59 +40,153 @@ $(document).ready(function () {
             })
             .done(function (data) {
                 if (data > 0) {
-                    $('.error_div').html('Email  exists')
+                    $('#email-error').html('Email  already exists')
+
+                }
+                else if (!isEmail(email)) {
+                    $('#email-error').html('Please enter a valid email address.')
+
+                }
+                else {
+                    $('#email-error').html('')
+                    valid = valid - 1
 
                 }
             })
     })
+
+    $("#password1").change(function () {
+        var password = $.trim($('#password1').val());
+        if (!password) {
+            $('#password1-error').html('Password  is required')
+        }
+        else if (password.length < 5) {
+            $('#password1-error').html('This field password should not be more than 4 characters')
+
+        }
+        else {
+            $('#password1-error').html('')
+            valid = valid - 1
+
+        }
+
+    })
+
+    $("#confirm-password").change(function () {
+        var password = $.trim($('#password1').val());
+        var confirm_password = $.trim($('#confirm-password').val());
+        if (password != confirm_password) {
+
+            $('#confirm-password-error').html('Password inputs not equal')
+        }
+        else {
+            $('#confirm-password-error').html('')
+            valid = valid - 1
+
+        }
+    })
+    $("#number").change(function () {
+        var number = parseInt($('#number').val())
+        if (isNaN(number)) {
+
+            $('#number-error').html('Not insert number')
+        }
+        else if (number > 5) {
+
+            $('#number-error').html('Number  not be more than 5 characters')
+
+        }
+        else {
+            $('#number-error').html('')
+            valid = valid - 1
+
+        }
+    })
+
     $('#register-submit').click(function (event) {
         var username = $.trim($('#reg-username').val());
         var email = $.trim($('#email').val());
         var password = $.trim($('#password1').val());
         var confirm_password = $.trim($('#confirm-password').val());
-        var number = parseInt($('#number').val());
+        var number = parseInt($('#number').val())
 
-        if (!username) {
-            $('.error_div').html('Username empty')
+        if (valid > 0) {
+            if (!username) {
+                $('#reg-username-error').html('This field username empty!')
+            }
+            if (username.length < 5) {
+                $('#reg-username-error').html('This field username should not be more than 4 characters')
+
+            }
+            if (!isEmail(email)) {
+                $('#email-error').html('Please enter a valid email address.')
+
+            }
+            if (!password) {
+                $('#password1-error').html('Password  is required')
+            }
+            if (password.length < 5) {
+                $('#password1-error').html('This field password should not be more than 4 characters')
+
+            }
+            if (password != confirm_password) {
+
+                $('#confirm-password-error').html('Password inputs not equal')
+            }
+            if (isNaN(number)) {
+
+                $('#number-error').html('Quantity not inserted')
+            }
+            if (number > 5) {
+
+                $('#number-error').html('Number  not be more than 5 ')
+
+            }
             event.preventDefault();
         }
-        else if (username.length < 5) {
-            $('.error_div').html('Username should not be more than 4 characters')
-
-            event.preventDefault();
-        }
-
-        else if (!isEmail(email)) {
-            $('.error_div').html('Email is not valid')
-
-            event.preventDefault();
-
-        }
-        else if (!password) {
-            $('.error_div').html('Password is not entered')
-            event.preventDefault();
-
-        }
-        else if (password != confirm_password) {
-
-            $('.error_div').html('Password inputs not equal')
-            event.preventDefault();
-
-
-        }
-        else if (isNaN(number)) {
-
-            $('.error_div').html('Not insert number')
-            event.preventDefault();
-
-        }
-        else if (number > 5) {
-
-            $('.error_div').html('Number  not be more than 5 characters')
-            event.preventDefault();
-
-        }
-
-
     })
+    $('#username').change(function () {
+        var username = $.trim($('#username').val());
+        if (!username) {
+            $('#username-error').html('Username is required')
+        }
+
+        else {
+            $('#username-error').html('')
+            login_valid = login_valid - 1
+        }
+    })
+    $('#password').change(function () {
+        var password = $.trim($('#password').val());
+        if (!password) {
+            $('#password-error').html('Password  is required')
+        }
+
+        else {
+            $('#password-error').html('')
+            login_valid = login_valid - 1
+
+        }
+    })
+    $("#login-submit").click(function () {
+        var username = $.trim($('#username').val());
+        var password = $.trim($('#password').val());
+        if (login_valid > 0) {
+            if (!username) {
+                $('.error').html('')
+                $('#username-error').html('Username is required')
+
+            }
+
+
+            if (!password) {
+                $('#password-error').html('Password  is required')
+
+            }
+
+            event.preventDefault();
+
+        }
+    })
+
 })
