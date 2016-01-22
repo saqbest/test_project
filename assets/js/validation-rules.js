@@ -1,6 +1,7 @@
 $(document).ready(function () {
     var login_valid = 2
     var valid = 5
+
     function isEmail(email) {
         var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         return regex.test(email);
@@ -16,14 +17,12 @@ $(document).ready(function () {
             .done(function (data) {
                 if (data > 0) {
                     $('#reg-username-error').html('Username already exists')
-
                 }
                 else if (!username) {
                     $('#reg-username-error').html('Username cannot be blank')
                 }
                 else if (username.length < 5) {
                     $('#reg-username-error').html('This field password should not be more than 4 characters')
-
                 }
                 else {
                     $('#reg-username-error').html('')
@@ -36,21 +35,17 @@ $(document).ready(function () {
 
         $.post('/site/checkunique', {
                 param: email,
-
             })
             .done(function (data) {
                 if (data > 0) {
                     $('#email-error').html('Email  already exists')
-
                 }
                 else if (!isEmail(email)) {
                     $('#email-error').html('Please enter a valid email address.')
-
                 }
                 else {
                     $('#email-error').html('')
                     valid = valid - 1
-
                 }
             })
     })
@@ -58,18 +53,15 @@ $(document).ready(function () {
     $("#password1").change(function () {
         var password = $.trim($('#password1').val());
         if (!password) {
-            $('#password1-error').html('Password  is required')
+            $('#password1-error').html('Password cannot be blank')
         }
         else if (password.length < 5) {
             $('#password1-error').html('This field password should not be more than 4 characters')
-
         }
         else {
             $('#password1-error').html('')
             valid = valid - 1
-
         }
-
     })
 
     $("#confirm-password").change(function () {
@@ -82,24 +74,20 @@ $(document).ready(function () {
         else {
             $('#confirm-password-error').html('')
             valid = valid - 1
-
         }
     })
     $("#number").change(function () {
         var number = parseInt($('#number').val())
         if (isNaN(number)) {
 
-            $('#number-error').html('Not insert number')
+            $('#number-error').html('This field must be a number')
         }
         else if (number > 5) {
-
-            $('#number-error').html('Number should contain at least 5 characters')
-
+            $('#number-error').html('Number can not be greater than 5')
         }
         else {
             $('#number-error').html('')
             valid = valid - 1
-
         }
     })
 
@@ -112,7 +100,7 @@ $(document).ready(function () {
 
         if (valid > 0) {
             if (!username) {
-                $('#reg-username-error').html('This field username empty!')
+                $('#reg-username-error').html('Username cannot be blank')
             }
             else if (username.length < 5) {
                 $('#reg-username-error').html('This field username  should contain at least 6 characters')
@@ -123,7 +111,7 @@ $(document).ready(function () {
 
             }
             if (!password) {
-                $('#password1-error').html('Password  is required')
+                $('#password1-error').html('Password  cannot be blank')
             }
             else if (password.length < 5) {
                 $('#password1-error').html('This field password should not be more than 4 characters')
@@ -133,10 +121,17 @@ $(document).ready(function () {
 
                 $('#confirm-password-error').html('Password inputs not equal')
             }
-            if (isNaN(number)) {
-
-                $('#number-error').html('Quantity not inserted')
+            else {
+                $('#confirm-password-error').html('')
             }
+            if (!number) {
+                $('#number-error').html(' Number cannot be blank')
+                if (!isNaN(number)) {
+
+                    $('#number-error').html(' This field must be a number')
+                }
+            }
+
             else if (number > 5) {
 
                 $('#number-error').html('Number can not be greater than 5 ')
@@ -148,7 +143,7 @@ $(document).ready(function () {
     $('#username').change(function () {
         var username = $.trim($('#username').val());
         if (!username) {
-            $('#username-error').html('Username is required')
+            $('#username-error').html('Username cannot be blank')
         }
 
         else {
@@ -159,13 +154,11 @@ $(document).ready(function () {
     $('#password').change(function () {
         var password = $.trim($('#password').val());
         if (!password) {
-            $('#password-error').html('Password  is required')
+            $('#password-error').html('Password cannot be blank')
         }
-
         else {
             $('#password-error').html('')
             login_valid = login_valid - 1
-
         }
     })
     $("#login-submit").click(function () {
@@ -174,19 +167,12 @@ $(document).ready(function () {
         if (login_valid > 0) {
             if (!username) {
                 $('.error').html('')
-                $('#username-error').html('Username is required')
-
+                $('#username-error').html('Username cannot be blank')
             }
-
-
             if (!password) {
-                $('#password-error').html('Password  is required')
-
+                $('#password-error').html('Password cannot be blank')
             }
-
             event.preventDefault();
-
         }
     })
-
 })
