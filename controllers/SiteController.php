@@ -5,18 +5,20 @@ use core\Controller;
 use models\Signup;
 use models\LoginForm;
 use models\ImageUpload;
+
 class SiteController extends Controller
 {
     function actionIndex()
     {
-
         if (!App::isGuest()) {
             $model = new Model();
             $user_id = $_SESSION['user_id'];
             $positions = $model->FindeAll($user_id);
-            $this->view->render('Template', array('positions' => $positions));
+            $result = $model->getAvatar($user_id);
+            $avatar = (empty($result[0]['image'])) ? 'default.jpg' : $result[0]['image'];
+            $this->view->render('Template', array('positions' => $positions, 'avatar' => $avatar));
         }
-        $this->view->render('LoginSignup');
+        $this->view->render('LoginSignUp');
     }
 
     function actionLogin()
@@ -27,23 +29,21 @@ class SiteController extends Controller
             $_SESSION['isGuest'] = true;
             $_SESSION['user_id'] = $user_id;
             header('Location: http://local.test.com/site/index');
-
-
         } elseif (!App::isGuest()) {
             header('Location: http://local.test.com/site/index');
         } else {
             foreach ($model->errors as $error) {
                 echo "<div class='error_div'>" . $error . "</div>";
             }
-            $this->view->render('LoginSignup');
+            $this->view->render('LoginSignUp');
 
         }
     }
 
-    function actionSignup()
+    function actionSignUp()
     {
         $model = new Signup();
-        var_dump($_POST);
+
         if ($model->isValidate($_POST)) {
             $model->Save($_POST['reg-username'], $_POST['email'], $_POST['password1'], $_POST['number']);
             $username = trim(htmlspecialchars($_POST['reg-username'], ENT_QUOTES));
@@ -51,13 +51,11 @@ class SiteController extends Controller
             $user_id = App::getUserId($username, $password);
             $_SESSION['isGuest'] = true;
             $_SESSION['user_id'] = $user_id;
+
             $this->view->render('ImageUpload');
-            unset($_POST);
         } elseif (!App::isGuest()) {
             header('Location: http://local.test.com/');
-
         } else {
-
             foreach ($model->errors as $error) {
 
                 echo "<div class='error_div'>" . $error . "</div>";
@@ -77,7 +75,6 @@ class SiteController extends Controller
         } else {
             return false;
         }
-
     }
 
     function actionLogout()
@@ -98,36 +95,31 @@ class SiteController extends Controller
                 return false;
             }
         }
-
     }
 
     function actionImageUpload()
     {
-
-
         if (isset($_FILES["FileInput"]) && $_FILES["FileInput"]["error"] == UPLOAD_ERR_OK) {
             $model = new ImageUpload();
-            if ($model->isValidate($_FILES["FileInput"])) {
-
+            if (!empty($_SESSION['user_id']) && $model->isValidate($_FILES["FileInput"])) {
                 $model->Save($_FILES["FileInput"]);
-                header('Location: http://local.test.com/');
-
+                echo json_encode(
+                    array(
+                        'status' => 'success',
+                        'url' => '/'
+                    )
+                );
             } else {
                 foreach ($model->errors as $error) {
                     echo $error;
                 }
-
             }
-
         } elseif (!App::isGuest()) {
             header('Location: http://local.test.com/');
-
         } else {
-
-            //$this->view->render('ImageUpload');
-
-            die('Something wrong with upload! Is "upload_max_filesize" set correctly?');
+            header('Location: http://local.test.com/');
         }
     }
+
 
 }

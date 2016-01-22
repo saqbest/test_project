@@ -1,3 +1,4 @@
+<div class="avatar"><img src="/uploads/images/<?= $avatar ?>" alt="Avatar"></div>
 <a href="http://local.test.com/site/logout" style="float: right" class="btn btn-default btn-lg active" role="button">Logout</a>
 
 <?php foreach ($positions as $value): ?>

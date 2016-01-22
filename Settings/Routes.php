@@ -5,7 +5,7 @@ return array(
     'site/checkunique' => 'site/checkunique',
     'site/logout' => 'site/logout',
     'site/setposition' => 'site/setposition',
-    'site/imageupload' => 'site/ImageUpload',
+    'site/imageupload' => 'site/imageupload',
     'site/index' => 'site/index',
     '' => 'site/index',
 );

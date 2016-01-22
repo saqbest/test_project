@@ -19,7 +19,7 @@ $(document).ready(function () {
 
                 }
                 else if (!username) {
-                    $('#reg-username-error').html('This field username empty!')
+                    $('#reg-username-error').html('Username cannot be blank')
                 }
                 else if (username.length < 5) {
                     $('#reg-username-error').html('This field password should not be more than 4 characters')
@@ -93,7 +93,7 @@ $(document).ready(function () {
         }
         else if (number > 5) {
 
-            $('#number-error').html('Number  not be more than 5 characters')
+            $('#number-error').html('Number should contain at least 5 characters')
 
         }
         else {
@@ -114,8 +114,8 @@ $(document).ready(function () {
             if (!username) {
                 $('#reg-username-error').html('This field username empty!')
             }
-            if (username.length < 5) {
-                $('#reg-username-error').html('This field username should not be more than 4 characters')
+            else if (username.length < 5) {
+                $('#reg-username-error').html('This field username  should contain at least 6 characters')
 
             }
             if (!isEmail(email)) {
@@ -125,7 +125,7 @@ $(document).ready(function () {
             if (!password) {
                 $('#password1-error').html('Password  is required')
             }
-            if (password.length < 5) {
+            else if (password.length < 5) {
                 $('#password1-error').html('This field password should not be more than 4 characters')
 
             }
@@ -137,9 +137,9 @@ $(document).ready(function () {
 
                 $('#number-error').html('Quantity not inserted')
             }
-            if (number > 5) {
+            else if (number > 5) {
 
-                $('#number-error').html('Number  not be more than 5 ')
+                $('#number-error').html('Number can not be greater than 5 ')
 
             }
             event.preventDefault();
